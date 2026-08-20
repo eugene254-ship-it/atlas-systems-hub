@@ -68,10 +68,10 @@ export function ActionLink({
   const styles = {
     primary: "bg-primary text-primary-foreground hover:bg-primary/85",
     outline: "border border-border text-foreground hover:border-primary hover:text-primary",
-    ghost: "text-muted-foreground hover:text-primary",
+    ghost: "px-0 text-muted-foreground hover:text-primary",
   } as const;
   return (
-    <Link to={to} className={cn(base, styles[variant], className)}>
+    <Link to={to as "/"} className={cn(base, styles[variant], className)}>
       {children}
       <span aria-hidden="true">→</span>
     </Link>
@@ -88,8 +88,32 @@ export function Tag({ children }: { children: ReactNode }) {
 
 export function StatusNote({ children }: { children: ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2 border border-primary/40 bg-primary/10 px-3 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-primary">
+    <span className="inline-flex items-center gap-2 border border-primary/40 bg-primary/10 px-3 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-primary">
       {children}
-    </p>
+    </span>
+  );
+}
+
+export function PageHero({
+  eyebrow,
+  title,
+  lead,
+}: {
+  eyebrow: string;
+  title: string;
+  lead: string;
+}) {
+  return (
+    <div className="relative overflow-hidden border-b border-border bg-surface">
+      <div
+        className="pointer-events-none absolute inset-0 grid-field opacity-40"
+        aria-hidden="true"
+      />
+      <Container className="relative py-20 md:py-28">
+        <p className="mono-label text-primary">{eyebrow}</p>
+        <h1 className="display-xl mt-6 max-w-4xl text-4xl md:text-6xl">{title}</h1>
+        <p className="mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">{lead}</p>
+      </Container>
+    </div>
   );
 }
