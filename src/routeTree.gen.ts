@@ -10,7 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as EngineeringRouteImport } from './routes/engineering'
 import { Route as IndustriesRouteImport } from './routes/industries'
+import { Route as IntelligenceRouteImport } from './routes/intelligence'
+import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as SystemsRouteImport } from './routes/systems'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +22,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EngineeringRoute = EngineeringRouteImport.update({
+  id: '/engineering',
+  path: '/engineering',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesRoute = IndustriesRouteImport.update({
   id: '/industries',
   path: '/industries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntelligenceRoute = IntelligenceRouteImport.update({
+  id: '/intelligence',
+  path: '/intelligence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SystemsRoute = SystemsRouteImport.update({
@@ -31,31 +55,69 @@ const SystemsRoute = SystemsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/projects': typeof ProjectsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/projects': typeof ProjectsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/projects': typeof ProjectsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/industries' | '/systems'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/engineering'
+    | '/industries'
+    | '/intelligence'
+    | '/projects'
+    | '/systems'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/industries' | '/systems'
-  id: '__root__' | '/' | '/industries' | '/systems'
+  to:
+    | '/'
+    | '/about'
+    | '/engineering'
+    | '/industries'
+    | '/intelligence'
+    | '/projects'
+    | '/systems'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/engineering'
+    | '/industries'
+    | '/intelligence'
+    | '/projects'
+    | '/systems'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  EngineeringRoute: typeof EngineeringRoute
   IndustriesRoute: typeof IndustriesRoute
+  IntelligenceRoute: typeof IntelligenceRoute
+  ProjectsRoute: typeof ProjectsRoute
   SystemsRoute: typeof SystemsRoute
 }
 
@@ -68,11 +130,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/engineering': {
+      id: '/engineering'
+      path: '/engineering'
+      fullPath: '/engineering'
+      preLoaderRoute: typeof EngineeringRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries': {
       id: '/industries'
       path: '/industries'
       fullPath: '/industries'
       preLoaderRoute: typeof IndustriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/intelligence': {
+      id: '/intelligence'
+      path: '/intelligence'
+      fullPath: '/intelligence'
+      preLoaderRoute: typeof IntelligenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/systems': {
@@ -87,7 +177,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  EngineeringRoute: EngineeringRoute,
   IndustriesRoute: IndustriesRoute,
+  IntelligenceRoute: IntelligenceRoute,
+  ProjectsRoute: ProjectsRoute,
   SystemsRoute: SystemsRoute,
 }
 export const routeTree = rootRouteImport
