@@ -500,8 +500,8 @@ function AfricaNetwork() {
               <g key={n.city}>
                 {i > 0 && (
                   <line
-                    x1={NETWORK_NODES[0].x}
-                    y1={NETWORK_NODES[0].y}
+                    x1={(NETWORK_NODES[0]?.x ?? 0)}
+                    y1={(NETWORK_NODES[0]?.y ?? 0)}
                     x2={n.x}
                     y2={n.y}
                     stroke="oklch(0.72 0.17 62 / 0.28)"
