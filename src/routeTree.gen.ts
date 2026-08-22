@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as ConfigureRouteImport } from './routes/configure'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EngineeringRouteImport } from './routes/engineering'
@@ -19,6 +20,8 @@ import { Route as IntelligenceRouteImport } from './routes/intelligence'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as QuoteRouteImport } from './routes/quote'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as SpecificationsRouteImport } from './routes/specifications'
 import { Route as SystemsRouteImport } from './routes/systems'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +32,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfigureRoute = ConfigureRouteImport.update({
@@ -71,6 +79,16 @@ const QuoteRoute = QuoteRouteImport.update({
   path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpecificationsRoute = SpecificationsRouteImport.update({
+  id: '/specifications',
+  path: '/specifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SystemsRoute = SystemsRouteImport.update({
   id: '/systems',
   path: '/systems',
@@ -80,6 +98,7 @@ const SystemsRoute = SystemsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
@@ -88,11 +107,14 @@ export interface FileRoutesByFullPath {
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
+  '/resources': typeof ResourcesRoute
+  '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
@@ -101,12 +123,15 @@ export interface FileRoutesByTo {
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
+  '/resources': typeof ResourcesRoute
+  '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
@@ -115,6 +140,8 @@ export interface FileRoutesById {
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
+  '/resources': typeof ResourcesRoute
+  '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRouteTypes {
@@ -122,6 +149,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/careers'
     | '/configure'
     | '/contact'
     | '/engineering'
@@ -130,11 +158,14 @@ export interface FileRouteTypes {
     | '/partners'
     | '/projects'
     | '/quote'
+    | '/resources'
+    | '/specifications'
     | '/systems'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/careers'
     | '/configure'
     | '/contact'
     | '/engineering'
@@ -143,11 +174,14 @@ export interface FileRouteTypes {
     | '/partners'
     | '/projects'
     | '/quote'
+    | '/resources'
+    | '/specifications'
     | '/systems'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/careers'
     | '/configure'
     | '/contact'
     | '/engineering'
@@ -156,12 +190,15 @@ export interface FileRouteTypes {
     | '/partners'
     | '/projects'
     | '/quote'
+    | '/resources'
+    | '/specifications'
     | '/systems'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CareersRoute: typeof CareersRoute
   ConfigureRoute: typeof ConfigureRoute
   ContactRoute: typeof ContactRoute
   EngineeringRoute: typeof EngineeringRoute
@@ -170,6 +207,8 @@ export interface RootRouteChildren {
   PartnersRoute: typeof PartnersRoute
   ProjectsRoute: typeof ProjectsRoute
   QuoteRoute: typeof QuoteRoute
+  ResourcesRoute: typeof ResourcesRoute
+  SpecificationsRoute: typeof SpecificationsRoute
   SystemsRoute: typeof SystemsRoute
 }
 
@@ -187,6 +226,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/configure': {
@@ -245,6 +291,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/specifications': {
+      id: '/specifications'
+      path: '/specifications'
+      fullPath: '/specifications'
+      preLoaderRoute: typeof SpecificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/systems': {
       id: '/systems'
       path: '/systems'
@@ -258,6 +318,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CareersRoute: CareersRoute,
   ConfigureRoute: ConfigureRoute,
   ContactRoute: ContactRoute,
   EngineeringRoute: EngineeringRoute,
@@ -266,6 +327,8 @@ const rootRouteChildren: RootRouteChildren = {
   PartnersRoute: PartnersRoute,
   ProjectsRoute: ProjectsRoute,
   QuoteRoute: QuoteRoute,
+  ResourcesRoute: ResourcesRoute,
+  SpecificationsRoute: SpecificationsRoute,
   SystemsRoute: SystemsRoute,
 }
 export const routeTree = rootRouteImport
