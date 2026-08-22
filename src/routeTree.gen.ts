@@ -11,10 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as CareersRouteImport } from './routes/careers'
+import { Route as ConfigureRouteImport } from './routes/configure'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EngineeringRouteImport } from './routes/engineering'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as QuoteRouteImport } from './routes/quote'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as SpecificationsRouteImport } from './routes/specifications'
 import { Route as SystemsRouteImport } from './routes/systems'
 
 const IndexRoute = IndexRouteImport.update({
@@ -25,6 +32,21 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfigureRoute = ConfigureRouteImport.update({
+  id: '/configure',
+  path: '/configure',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EngineeringRoute = EngineeringRouteImport.update({
@@ -42,9 +64,29 @@ const IntelligenceRoute = IntelligenceRouteImport.update({
   path: '/intelligence',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpecificationsRoute = SpecificationsRouteImport.update({
+  id: '/specifications',
+  path: '/specifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SystemsRoute = SystemsRouteImport.update({
@@ -56,29 +98,50 @@ const SystemsRoute = SystemsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/configure': typeof ConfigureRoute
+  '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
+  '/quote': typeof QuoteRoute
+  '/resources': typeof ResourcesRoute
+  '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/configure': typeof ConfigureRoute
+  '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
+  '/quote': typeof QuoteRoute
+  '/resources': typeof ResourcesRoute
+  '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/configure': typeof ConfigureRoute
+  '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
+  '/quote': typeof QuoteRoute
+  '/resources': typeof ResourcesRoute
+  '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
 }
 export interface FileRouteTypes {
@@ -86,38 +149,66 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/careers'
+    | '/configure'
+    | '/contact'
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/partners'
     | '/projects'
+    | '/quote'
+    | '/resources'
+    | '/specifications'
     | '/systems'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/careers'
+    | '/configure'
+    | '/contact'
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/partners'
     | '/projects'
+    | '/quote'
+    | '/resources'
+    | '/specifications'
     | '/systems'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/careers'
+    | '/configure'
+    | '/contact'
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/partners'
     | '/projects'
+    | '/quote'
+    | '/resources'
+    | '/specifications'
     | '/systems'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CareersRoute: typeof CareersRoute
+  ConfigureRoute: typeof ConfigureRoute
+  ContactRoute: typeof ContactRoute
   EngineeringRoute: typeof EngineeringRoute
   IndustriesRoute: typeof IndustriesRoute
   IntelligenceRoute: typeof IntelligenceRoute
+  PartnersRoute: typeof PartnersRoute
   ProjectsRoute: typeof ProjectsRoute
+  QuoteRoute: typeof QuoteRoute
+  ResourcesRoute: typeof ResourcesRoute
+  SpecificationsRoute: typeof SpecificationsRoute
   SystemsRoute: typeof SystemsRoute
 }
 
@@ -135,6 +226,27 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configure': {
+      id: '/configure'
+      path: '/configure'
+      fullPath: '/configure'
+      preLoaderRoute: typeof ConfigureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/engineering': {
@@ -158,11 +270,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IntelligenceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/specifications': {
+      id: '/specifications'
+      path: '/specifications'
+      fullPath: '/specifications'
+      preLoaderRoute: typeof SpecificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/systems': {
@@ -178,10 +318,17 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CareersRoute: CareersRoute,
+  ConfigureRoute: ConfigureRoute,
+  ContactRoute: ContactRoute,
   EngineeringRoute: EngineeringRoute,
   IndustriesRoute: IndustriesRoute,
   IntelligenceRoute: IntelligenceRoute,
+  PartnersRoute: PartnersRoute,
   ProjectsRoute: ProjectsRoute,
+  QuoteRoute: QuoteRoute,
+  ResourcesRoute: ResourcesRoute,
+  SpecificationsRoute: SpecificationsRoute,
   SystemsRoute: SystemsRoute,
 }
 export const routeTree = rootRouteImport
