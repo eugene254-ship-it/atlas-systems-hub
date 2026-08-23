@@ -92,7 +92,7 @@ function Hero() {
         alt="Modular containerized industrial facility installed on a prepared site at dusk"
         width={1920}
         height={1088}
-        className="absolute inset-0 h-full w-full object-cover opacity-40"
+        className="absolute inset-0 h-full w-full object-cover opacity-60"
       />
       <div
         className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background"
