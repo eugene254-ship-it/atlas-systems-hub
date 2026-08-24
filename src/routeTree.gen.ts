@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as CareersRouteImport } from './routes/careers'
+import { Route as CommandCenterRouteImport } from './routes/command-center'
 import { Route as ConfigureRouteImport } from './routes/configure'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EngineeringRouteImport } from './routes/engineering'
@@ -38,6 +39,11 @@ const AboutRoute = AboutRouteImport.update({
 const CareersRoute = CareersRouteImport.update({
   id: '/careers',
   path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommandCenterRoute = CommandCenterRouteImport.update({
+  id: '/command-center',
+  path: '/command-center',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfigureRoute = ConfigureRouteImport.update({
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
+  '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
+  '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
+  '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
   '/engineering': typeof EngineeringRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
+    | '/command-center'
     | '/configure'
     | '/contact'
     | '/engineering'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
+    | '/command-center'
     | '/configure'
     | '/contact'
     | '/engineering'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
+    | '/command-center'
     | '/configure'
     | '/contact'
     | '/engineering'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   CareersRoute: typeof CareersRoute
+  CommandCenterRoute: typeof CommandCenterRoute
   ConfigureRoute: typeof ConfigureRoute
   ContactRoute: typeof ContactRoute
   EngineeringRoute: typeof EngineeringRoute
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/careers'
       fullPath: '/careers'
       preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/command-center': {
+      id: '/command-center'
+      path: '/command-center'
+      fullPath: '/command-center'
+      preLoaderRoute: typeof CommandCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/configure': {
@@ -339,6 +359,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   CareersRoute: CareersRoute,
+  CommandCenterRoute: CommandCenterRoute,
   ConfigureRoute: ConfigureRoute,
   ContactRoute: ContactRoute,
   EngineeringRoute: EngineeringRoute,
