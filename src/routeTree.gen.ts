@@ -11,12 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AfricaRouteImport } from './routes/africa'
 import { Route as CareersRouteImport } from './routes/careers'
+import { Route as CommandCenterRouteImport } from './routes/command-center'
 import { Route as ConfigureRouteImport } from './routes/configure'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as EngineeringRouteImport } from './routes/engineering'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
+import { Route as MarketRouteImport } from './routes/market'
+import { Route as OsRouteImport } from './routes/os'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as QuoteRouteImport } from './routes/quote'
@@ -34,9 +39,19 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AfricaRoute = AfricaRouteImport.update({
+  id: '/africa',
+  path: '/africa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CareersRoute = CareersRouteImport.update({
   id: '/careers',
   path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommandCenterRoute = CommandCenterRouteImport.update({
+  id: '/command-center',
+  path: '/command-center',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfigureRoute = ConfigureRouteImport.update({
@@ -47,6 +62,11 @@ const ConfigureRoute = ConfigureRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CopilotRoute = CopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EngineeringRoute = EngineeringRouteImport.update({
@@ -62,6 +82,16 @@ const IndustriesRoute = IndustriesRouteImport.update({
 const IntelligenceRoute = IntelligenceRouteImport.update({
   id: '/intelligence',
   path: '/intelligence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketRoute = MarketRouteImport.update({
+  id: '/market',
+  path: '/market',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OsRoute = OsRouteImport.update({
+  id: '/os',
+  path: '/os',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnersRoute = PartnersRouteImport.update({
@@ -98,12 +128,17 @@ const SystemsRoute = SystemsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
+  '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/market': typeof MarketRoute
+  '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
@@ -114,12 +149,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
+  '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/market': typeof MarketRoute
+  '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
@@ -131,12 +171,17 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
+  '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/market': typeof MarketRoute
+  '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
@@ -149,12 +194,17 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/africa'
     | '/careers'
+    | '/command-center'
     | '/configure'
     | '/contact'
+    | '/copilot'
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/market'
+    | '/os'
     | '/partners'
     | '/projects'
     | '/quote'
@@ -165,12 +215,17 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/africa'
     | '/careers'
+    | '/command-center'
     | '/configure'
     | '/contact'
+    | '/copilot'
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/market'
+    | '/os'
     | '/partners'
     | '/projects'
     | '/quote'
@@ -181,12 +236,17 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/africa'
     | '/careers'
+    | '/command-center'
     | '/configure'
     | '/contact'
+    | '/copilot'
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/market'
+    | '/os'
     | '/partners'
     | '/projects'
     | '/quote'
@@ -198,12 +258,17 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AfricaRoute: typeof AfricaRoute
   CareersRoute: typeof CareersRoute
+  CommandCenterRoute: typeof CommandCenterRoute
   ConfigureRoute: typeof ConfigureRoute
   ContactRoute: typeof ContactRoute
+  CopilotRoute: typeof CopilotRoute
   EngineeringRoute: typeof EngineeringRoute
   IndustriesRoute: typeof IndustriesRoute
   IntelligenceRoute: typeof IntelligenceRoute
+  MarketRoute: typeof MarketRoute
+  OsRoute: typeof OsRoute
   PartnersRoute: typeof PartnersRoute
   ProjectsRoute: typeof ProjectsRoute
   QuoteRoute: typeof QuoteRoute
@@ -228,11 +293,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/africa': {
+      id: '/africa'
+      path: '/africa'
+      fullPath: '/africa'
+      preLoaderRoute: typeof AfricaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/careers': {
       id: '/careers'
       path: '/careers'
       fullPath: '/careers'
       preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/command-center': {
+      id: '/command-center'
+      path: '/command-center'
+      fullPath: '/command-center'
+      preLoaderRoute: typeof CommandCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/configure': {
@@ -247,6 +326,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/copilot': {
+      id: '/copilot'
+      path: '/copilot'
+      fullPath: '/copilot'
+      preLoaderRoute: typeof CopilotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/engineering': {
@@ -268,6 +354,20 @@ declare module '@tanstack/react-router' {
       path: '/intelligence'
       fullPath: '/intelligence'
       preLoaderRoute: typeof IntelligenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/market': {
+      id: '/market'
+      path: '/market'
+      fullPath: '/market'
+      preLoaderRoute: typeof MarketRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/os': {
+      id: '/os'
+      path: '/os'
+      fullPath: '/os'
+      preLoaderRoute: typeof OsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partners': {
@@ -318,12 +418,17 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AfricaRoute: AfricaRoute,
   CareersRoute: CareersRoute,
+  CommandCenterRoute: CommandCenterRoute,
   ConfigureRoute: ConfigureRoute,
   ContactRoute: ContactRoute,
+  CopilotRoute: CopilotRoute,
   EngineeringRoute: EngineeringRoute,
   IndustriesRoute: IndustriesRoute,
   IntelligenceRoute: IntelligenceRoute,
+  MarketRoute: MarketRoute,
+  OsRoute: OsRoute,
   PartnersRoute: PartnersRoute,
   ProjectsRoute: ProjectsRoute,
   QuoteRoute: QuoteRoute,
