@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AfricaRouteImport } from './routes/africa'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CommandCenterRouteImport } from './routes/command-center'
 import { Route as ConfigureRouteImport } from './routes/configure'
@@ -36,6 +37,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AfricaRoute = AfricaRouteImport.update({
+  id: '/africa',
+  path: '/africa',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -122,6 +128,7 @@ const SystemsRoute = SystemsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/africa'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/africa'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/africa'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -246,6 +258,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AfricaRoute: typeof AfricaRoute
   CareersRoute: typeof CareersRoute
   CommandCenterRoute: typeof CommandCenterRoute
   ConfigureRoute: typeof ConfigureRoute
@@ -278,6 +291,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/africa': {
+      id: '/africa'
+      path: '/africa'
+      fullPath: '/africa'
+      preLoaderRoute: typeof AfricaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -398,6 +418,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AfricaRoute: AfricaRoute,
   CareersRoute: CareersRoute,
   CommandCenterRoute: CommandCenterRoute,
   ConfigureRoute: ConfigureRoute,
