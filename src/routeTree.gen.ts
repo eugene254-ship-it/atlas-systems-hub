@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EngineeringRouteImport } from './routes/engineering'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
+import { Route as OsRouteImport } from './routes/os'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as QuoteRouteImport } from './routes/quote'
@@ -64,6 +65,11 @@ const IntelligenceRoute = IntelligenceRouteImport.update({
   path: '/intelligence',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OsRoute = OsRouteImport.update({
+  id: '/os',
+  path: '/os',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnersRoute = PartnersRouteImport.update({
   id: '/partners',
   path: '/partners',
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
   '/projects': typeof ProjectsRoute
   '/quote': typeof QuoteRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/os'
     | '/partners'
     | '/projects'
     | '/quote'
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/os'
     | '/partners'
     | '/projects'
     | '/quote'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/os'
     | '/partners'
     | '/projects'
     | '/quote'
@@ -204,6 +216,7 @@ export interface RootRouteChildren {
   EngineeringRoute: typeof EngineeringRoute
   IndustriesRoute: typeof IndustriesRoute
   IntelligenceRoute: typeof IntelligenceRoute
+  OsRoute: typeof OsRoute
   PartnersRoute: typeof PartnersRoute
   ProjectsRoute: typeof ProjectsRoute
   QuoteRoute: typeof QuoteRoute
@@ -270,6 +283,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IntelligenceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/os': {
+      id: '/os'
+      path: '/os'
+      fullPath: '/os'
+      preLoaderRoute: typeof OsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partners': {
       id: '/partners'
       path: '/partners'
@@ -324,6 +344,7 @@ const rootRouteChildren: RootRouteChildren = {
   EngineeringRoute: EngineeringRoute,
   IndustriesRoute: IndustriesRoute,
   IntelligenceRoute: IntelligenceRoute,
+  OsRoute: OsRoute,
   PartnersRoute: PartnersRoute,
   ProjectsRoute: ProjectsRoute,
   QuoteRoute: QuoteRoute,
