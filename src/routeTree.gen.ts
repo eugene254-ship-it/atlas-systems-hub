@@ -15,6 +15,7 @@ import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CommandCenterRouteImport } from './routes/command-center'
 import { Route as ConfigureRouteImport } from './routes/configure'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as EngineeringRouteImport } from './routes/engineering'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
@@ -54,6 +55,11 @@ const ConfigureRoute = ConfigureRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CopilotRoute = CopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EngineeringRoute = EngineeringRouteImport.update({
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/command-center'
     | '/configure'
     | '/contact'
+    | '/copilot'
     | '/engineering'
     | '/industries'
     | '/intelligence'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/command-center'
     | '/configure'
     | '/contact'
+    | '/copilot'
     | '/engineering'
     | '/industries'
     | '/intelligence'
@@ -207,6 +218,7 @@ export interface FileRouteTypes {
     | '/command-center'
     | '/configure'
     | '/contact'
+    | '/copilot'
     | '/engineering'
     | '/industries'
     | '/intelligence'
@@ -226,6 +238,7 @@ export interface RootRouteChildren {
   CommandCenterRoute: typeof CommandCenterRoute
   ConfigureRoute: typeof ConfigureRoute
   ContactRoute: typeof ContactRoute
+  CopilotRoute: typeof CopilotRoute
   EngineeringRoute: typeof EngineeringRoute
   IndustriesRoute: typeof IndustriesRoute
   IntelligenceRoute: typeof IntelligenceRoute
@@ -280,6 +293,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/copilot': {
+      id: '/copilot'
+      path: '/copilot'
+      fullPath: '/copilot'
+      preLoaderRoute: typeof CopilotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/engineering': {
@@ -362,6 +382,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommandCenterRoute: CommandCenterRoute,
   ConfigureRoute: ConfigureRoute,
   ContactRoute: ContactRoute,
+  CopilotRoute: CopilotRoute,
   EngineeringRoute: EngineeringRoute,
   IndustriesRoute: IndustriesRoute,
   IntelligenceRoute: IntelligenceRoute,
