@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as AfricaRouteImport } from './routes/africa'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CommandCenterRouteImport } from './routes/command-center'
@@ -20,6 +21,7 @@ import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as EngineeringRouteImport } from './routes/engineering'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
+import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as MarketRouteImport } from './routes/market'
 import { Route as OsRouteImport } from './routes/os'
 import { Route as PartnersRouteImport } from './routes/partners'
@@ -37,6 +39,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademyRoute = AcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AfricaRoute = AfricaRouteImport.update({
@@ -84,6 +91,11 @@ const IntelligenceRoute = IntelligenceRouteImport.update({
   path: '/intelligence',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvestorsRoute = InvestorsRouteImport.update({
+  id: '/investors',
+  path: '/investors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MarketRoute = MarketRouteImport.update({
   id: '/market',
   path: '/market',
@@ -128,6 +140,7 @@ const SystemsRoute = SystemsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/academy': typeof AcademyRoute
   '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
@@ -137,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/investors': typeof InvestorsRoute
   '/market': typeof MarketRoute
   '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
@@ -149,6 +163,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/academy': typeof AcademyRoute
   '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
@@ -158,6 +173,7 @@ export interface FileRoutesByTo {
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/investors': typeof InvestorsRoute
   '/market': typeof MarketRoute
   '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
@@ -171,6 +187,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/academy': typeof AcademyRoute
   '/africa': typeof AfricaRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
@@ -180,6 +197,7 @@ export interface FileRoutesById {
   '/engineering': typeof EngineeringRoute
   '/industries': typeof IndustriesRoute
   '/intelligence': typeof IntelligenceRoute
+  '/investors': typeof InvestorsRoute
   '/market': typeof MarketRoute
   '/os': typeof OsRoute
   '/partners': typeof PartnersRoute
@@ -194,6 +212,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/academy'
     | '/africa'
     | '/careers'
     | '/command-center'
@@ -203,6 +222,7 @@ export interface FileRouteTypes {
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/investors'
     | '/market'
     | '/os'
     | '/partners'
@@ -215,6 +235,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/academy'
     | '/africa'
     | '/careers'
     | '/command-center'
@@ -224,6 +245,7 @@ export interface FileRouteTypes {
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/investors'
     | '/market'
     | '/os'
     | '/partners'
@@ -236,6 +258,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/academy'
     | '/africa'
     | '/careers'
     | '/command-center'
@@ -245,6 +268,7 @@ export interface FileRouteTypes {
     | '/engineering'
     | '/industries'
     | '/intelligence'
+    | '/investors'
     | '/market'
     | '/os'
     | '/partners'
@@ -258,6 +282,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AcademyRoute: typeof AcademyRoute
   AfricaRoute: typeof AfricaRoute
   CareersRoute: typeof CareersRoute
   CommandCenterRoute: typeof CommandCenterRoute
@@ -267,6 +292,7 @@ export interface RootRouteChildren {
   EngineeringRoute: typeof EngineeringRoute
   IndustriesRoute: typeof IndustriesRoute
   IntelligenceRoute: typeof IntelligenceRoute
+  InvestorsRoute: typeof InvestorsRoute
   MarketRoute: typeof MarketRoute
   OsRoute: typeof OsRoute
   PartnersRoute: typeof PartnersRoute
@@ -291,6 +317,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academy': {
+      id: '/academy'
+      path: '/academy'
+      fullPath: '/academy'
+      preLoaderRoute: typeof AcademyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/africa': {
@@ -356,6 +389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IntelligenceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/investors': {
+      id: '/investors'
+      path: '/investors'
+      fullPath: '/investors'
+      preLoaderRoute: typeof InvestorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/market': {
       id: '/market'
       path: '/market'
@@ -418,6 +458,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AcademyRoute: AcademyRoute,
   AfricaRoute: AfricaRoute,
   CareersRoute: CareersRoute,
   CommandCenterRoute: CommandCenterRoute,
@@ -427,6 +468,7 @@ const rootRouteChildren: RootRouteChildren = {
   EngineeringRoute: EngineeringRoute,
   IndustriesRoute: IndustriesRoute,
   IntelligenceRoute: IntelligenceRoute,
+  InvestorsRoute: InvestorsRoute,
   MarketRoute: MarketRoute,
   OsRoute: OsRoute,
   PartnersRoute: PartnersRoute,
