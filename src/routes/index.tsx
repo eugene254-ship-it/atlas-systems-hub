@@ -18,6 +18,8 @@ import {
   PROJECTS,
   SYSTEM_FAMILIES,
 } from "@/components/ais/data";
+import { AUDIENCES, STACK_LAYERS } from "@/components/ais/platform-data";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -68,7 +70,10 @@ function Home() {
     <>
       <Hero />
       <CapabilityStrip />
+      <AudiencePaths />
+      <IndustrialStack />
       <Difference />
+
       <SystemsPortfolio />
       <IndustriesMatrix />
       <ConfigureTeaser />
@@ -112,12 +117,16 @@ function Hero() {
           energy, manufacturing, construction, mining, humanitarian operations and resilient
           infrastructure.
         </p>
-        <div className="mt-10 flex flex-wrap gap-3">
-          <ActionLink to="/quote">Start a project</ActionLink>
-          <ActionLink to="/systems" variant="outline">
-            Explore our systems
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <ActionLink to="/configure">Configure a system</ActionLink>
+          <ActionLink to="/quote" variant="outline">
+            Start a project
+          </ActionLink>
+          <ActionLink to="/os" variant="ghost" className="ml-1">
+            Enter AIS Industrial OS
           </ActionLink>
         </div>
+
         <div className="mt-14 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-border pt-6 font-mono text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">
           {["Design", "Fabricate", "Integrate", "Deploy", "Operate"].map((step, i) => (
             <span key={step} className="flex items-center gap-4">
@@ -153,6 +162,61 @@ function CapabilityStrip() {
     </div>
   );
 }
+
+function AudiencePaths() {
+  return (
+    <Section>
+      <SectionHeader
+        index="00"
+        eyebrow="Choose your path"
+        title="Find the entry point that matches your role."
+        lead="Enterprise buyers, engineers, procurement teams, governments, operators, investors and partners each need a different first screen."
+      />
+      <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        {AUDIENCES.map((a) => (
+          <Link
+            key={a.label}
+            to={a.to as "/"}
+            className="group bg-background p-7 transition-colors hover:bg-surface"
+          >
+            <h3 className="font-display text-base font-bold uppercase tracking-[0.06em]">
+              {a.label}
+            </h3>
+            <p className="mt-3 text-sm text-muted-foreground">{a.note}</p>
+            <span className="mono-label mt-6 block text-primary opacity-0 transition-opacity group-hover:opacity-100">
+              Enter →
+            </span>
+          </Link>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function IndustrialStack() {
+  return (
+    <Section className="bg-surface">
+      <SectionHeader
+        eyebrow="The AIS industrial stack"
+        title="Six layers, engineered as one system."
+        lead="From material through to operations, AIS owns the transitions where conventional infrastructure projects usually break."
+      />
+      <ol className="mt-12 space-y-px border border-border bg-border">
+        {STACK_LAYERS.map((l) => (
+          <li
+            key={l.id}
+            className="group grid gap-3 bg-background p-7 transition-colors hover:bg-surface-2 md:grid-cols-[7rem_14rem_1fr] md:items-baseline"
+          >
+            <span className="mono-label text-primary">Layer {l.id}</span>
+            <h3 className="font-display text-lg font-bold uppercase tracking-[0.06em]">{l.name}</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">{l.body}</p>
+          </li>
+        ))}
+      </ol>
+    </Section>
+  );
+}
+
 
 function Difference() {
   return (

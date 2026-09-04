@@ -7,10 +7,12 @@ const NAV = [
   { label: "Systems", to: "/systems" },
   { label: "Industries", to: "/industries" },
   { label: "Engineering", to: "/engineering" },
-  { label: "Projects", to: "/projects" },
-  { label: "Intelligence", to: "/intelligence" },
-  { label: "About", to: "/about" },
+  { label: "Industrial OS", to: "/os" },
+  { label: "Market", to: "/market" },
+  { label: "Africa", to: "/africa" },
+  { label: "Investors", to: "/investors" },
 ];
+
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
