@@ -68,7 +68,10 @@ function Home() {
     <>
       <Hero />
       <CapabilityStrip />
+      <AudiencePaths />
+      <IndustrialStack />
       <Difference />
+
       <SystemsPortfolio />
       <IndustriesMatrix />
       <ConfigureTeaser />
