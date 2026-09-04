@@ -22,16 +22,29 @@ const COLUMNS: { title: string; links: { label: string; to: string }[] }[] = [
     ],
   },
   {
+    title: "Platform",
+    links: [
+      { label: "Industrial OS", to: "/os" },
+      { label: "Command center", to: "/command-center" },
+      { label: "Engineering copilot", to: "/copilot" },
+      { label: "AIS Market", to: "/market" },
+      { label: "Configurator", to: "/configure" },
+    ],
+  },
+  {
     title: "Company",
     links: [
       { label: "About", to: "/about" },
+      { label: "Africa", to: "/africa" },
+      { label: "Investors", to: "/investors" },
+      { label: "Academy", to: "/academy" },
       { label: "Partners", to: "/partners" },
       { label: "Careers", to: "/careers" },
       { label: "Contact", to: "/contact" },
-      { label: "Procurement", to: "/quote" },
     ],
   },
 ];
+
 
 export function SiteFooter() {
   return (
