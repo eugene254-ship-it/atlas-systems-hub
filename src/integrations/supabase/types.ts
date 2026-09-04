@@ -14,16 +14,195 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      rfq_lead_events: {
+        Row: {
+          created_at: string
+          detail: string | null
+          id: string
+          kind: string
+          lead_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          detail?: string | null
+          id?: string
+          kind: string
+          lead_id: string
+          status: string
+        }
+        Update: {
+          created_at?: string
+          detail?: string | null
+          id?: string
+          kind?: string
+          lead_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rfq_lead_events_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "rfq_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rfq_leads: {
+        Row: {
+          budget: string | null
+          contact_email: string
+          contact_name: string
+          contact_phone: string | null
+          copilot_brief: Json | null
+          created_at: string
+          id: string
+          location: string
+          organization: string
+          project_name: string
+          reference: string
+          requirements: string | null
+          scale: string | null
+          sector: string | null
+          source: string
+          status: string
+          system: string | null
+          timeline: string | null
+          updated_at: string
+        }
+        Insert: {
+          budget?: string | null
+          contact_email: string
+          contact_name: string
+          contact_phone?: string | null
+          copilot_brief?: Json | null
+          created_at?: string
+          id?: string
+          location: string
+          organization: string
+          project_name: string
+          reference: string
+          requirements?: string | null
+          scale?: string | null
+          sector?: string | null
+          source?: string
+          status?: string
+          system?: string | null
+          timeline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          budget?: string | null
+          contact_email?: string
+          contact_name?: string
+          contact_phone?: string | null
+          copilot_brief?: Json | null
+          created_at?: string
+          id?: string
+          location?: string
+          organization?: string
+          project_name?: string
+          reference?: string
+          requirements?: string | null
+          scale?: string | null
+          sector?: string | null
+          source?: string
+          status?: string
+          system?: string | null
+          timeline?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          fields: Json
+          label: string
+          og_description: string
+          og_title: string
+          route_key: string
+          seo_description: string
+          seo_title: string
+          updated_at: string
+        }
+        Insert: {
+          fields?: Json
+          label: string
+          og_description?: string
+          og_title?: string
+          route_key: string
+          seo_description?: string
+          seo_title?: string
+          updated_at?: string
+        }
+        Update: {
+          fields?: Json
+          label?: string
+          og_description?: string
+          og_title?: string
+          route_key?: string
+          seo_description?: string
+          seo_title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +329,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor"],
+    },
   },
 } as const
