@@ -18,6 +18,8 @@ import {
   PROJECTS,
   SYSTEM_FAMILIES,
 } from "@/components/ais/data";
+import { AUDIENCES, STACK_LAYERS } from "@/components/ais/platform-data";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
