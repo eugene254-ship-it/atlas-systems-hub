@@ -112,12 +112,16 @@ function Hero() {
           energy, manufacturing, construction, mining, humanitarian operations and resilient
           infrastructure.
         </p>
-        <div className="mt-10 flex flex-wrap gap-3">
-          <ActionLink to="/quote">Start a project</ActionLink>
-          <ActionLink to="/systems" variant="outline">
-            Explore our systems
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <ActionLink to="/configure">Configure a system</ActionLink>
+          <ActionLink to="/quote" variant="outline">
+            Start a project
+          </ActionLink>
+          <ActionLink to="/os" variant="ghost" className="ml-1">
+            Enter AIS Industrial OS
           </ActionLink>
         </div>
+
         <div className="mt-14 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-border pt-6 font-mono text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">
           {["Design", "Fabricate", "Integrate", "Deploy", "Operate"].map((step, i) => (
             <span key={step} className="flex items-center gap-4">
