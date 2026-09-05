@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AcademyRouteImport } from './routes/academy'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AfricaRouteImport } from './routes/africa'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CommandCenterRouteImport } from './routes/command-center'
 import { Route as ConfigureRouteImport } from './routes/configure'
@@ -30,6 +32,8 @@ import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SpecificationsRouteImport } from './routes/specifications'
 import { Route as SystemsRouteImport } from './routes/systems'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminContentRouteImport } from './routes/admin.content'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,9 +50,19 @@ const AcademyRoute = AcademyRouteImport.update({
   path: '/academy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AfricaRoute = AfricaRouteImport.update({
   id: '/africa',
   path: '/africa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -136,12 +150,24 @@ const SystemsRoute = SystemsRouteImport.update({
   path: '/systems',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminContentRoute = AdminContentRouteImport.update({
+  id: '/content',
+  path: '/content',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
+  '/admin': typeof AdminRouteWithChildren
   '/africa': typeof AfricaRoute
+  '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -159,12 +185,15 @@ export interface FileRoutesByFullPath {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin/content': typeof AdminContentRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
   '/africa': typeof AfricaRoute
+  '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -182,13 +211,17 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin/content': typeof AdminContentRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
+  '/admin': typeof AdminRouteWithChildren
   '/africa': typeof AfricaRoute
+  '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -206,6 +239,8 @@ export interface FileRoutesById {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin/content': typeof AdminContentRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -213,7 +248,9 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/academy'
+    | '/admin'
     | '/africa'
+    | '/auth'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -231,12 +268,15 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin/content'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/academy'
     | '/africa'
+    | '/auth'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -254,12 +294,16 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin/content'
+    | '/admin'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/academy'
+    | '/admin'
     | '/africa'
+    | '/auth'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -277,13 +321,17 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin/content'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AcademyRoute: typeof AcademyRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AfricaRoute: typeof AfricaRoute
+  AuthRoute: typeof AuthRoute
   CareersRoute: typeof CareersRoute
   CommandCenterRoute: typeof CommandCenterRoute
   ConfigureRoute: typeof ConfigureRoute
@@ -326,11 +374,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/africa': {
       id: '/africa'
       path: '/africa'
       fullPath: '/africa'
       preLoaderRoute: typeof AfricaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -452,14 +514,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SystemsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/content': {
+      id: '/admin/content'
+      path: '/content'
+      fullPath: '/admin/content'
+      preLoaderRoute: typeof AdminContentRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminContentRoute: typeof AdminContentRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminContentRoute: AdminContentRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AcademyRoute: AcademyRoute,
+  AdminRoute: AdminRouteWithChildren,
   AfricaRoute: AfricaRoute,
+  AuthRoute: AuthRoute,
   CareersRoute: CareersRoute,
   CommandCenterRoute: CommandCenterRoute,
   ConfigureRoute: ConfigureRoute,
