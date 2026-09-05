@@ -32,6 +32,7 @@ import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SpecificationsRouteImport } from './routes/specifications'
 import { Route as SystemsRouteImport } from './routes/systems'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -148,12 +149,17 @@ const SystemsRoute = SystemsRouteImport.update({
   path: '/systems',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/africa': typeof AfricaRoute
   '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
@@ -173,12 +179,12 @@ export interface FileRoutesByFullPath {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
-  '/admin': typeof AdminRoute
   '/africa': typeof AfricaRoute
   '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
@@ -198,13 +204,14 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/africa': typeof AfricaRoute
   '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
@@ -224,6 +231,7 @@ export interface FileRoutesById {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -251,12 +259,12 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/academy'
-    | '/admin'
     | '/africa'
     | '/auth'
     | '/careers'
@@ -276,6 +284,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -301,13 +310,14 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AcademyRoute: typeof AcademyRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AfricaRoute: typeof AfricaRoute
   AuthRoute: typeof AuthRoute
   CareersRoute: typeof CareersRoute
@@ -492,14 +502,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SystemsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AcademyRoute: AcademyRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   AfricaRoute: AfricaRoute,
   AuthRoute: AuthRoute,
   CareersRoute: CareersRoute,
