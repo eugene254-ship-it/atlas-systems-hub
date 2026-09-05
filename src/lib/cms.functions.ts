@@ -41,17 +41,12 @@ export const getSiteContent = createServerFn({ method: "GET" })
     }
   });
 
-async function assertStaff(supabase: Database extends never ? never : any, userId: string) {
-  const { data, error } = await supabase.rpc("is_staff", { _user_id: userId });
-  if (error) throw new Error("Could not verify permissions");
-  if (!data) throw new Error("Forbidden");
-}
-
 /** Staff: every editable page record. */
 export const listSiteContent = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertStaff(context.supabase, context.userId);
+    const { data: staff } = await context.supabase.rpc("is_staff", { _user_id: context.userId });
+    if (!staff) throw new Error("Forbidden");
     const { data, error } = await context.supabase
       .from("site_content")
       .select("route_key,label,seo_title,seo_description,og_title,og_description,fields,updated_at")
@@ -77,7 +72,8 @@ export const saveSiteContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => contentSchema.parse(input))
   .handler(async ({ data, context }) => {
-    await assertStaff(context.supabase, context.userId);
+    const { data: staff } = await context.supabase.rpc("is_staff", { _user_id: context.userId });
+    if (!staff) throw new Error("Forbidden");
     const label = CONTENT_DEFAULTS[data.route_key]?.label ?? data.route_key;
     const { error } = await context.supabase
       .from("site_content")
@@ -107,7 +103,8 @@ const settingsSchema = z.object({
 export const getRfqSettings = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertStaff(context.supabase, context.userId);
+    const { data: staff } = await context.supabase.rpc("is_staff", { _user_id: context.userId });
+    if (!staff) throw new Error("Forbidden");
     const { data } = await context.supabase
       .from("site_settings")
       .select("value")
