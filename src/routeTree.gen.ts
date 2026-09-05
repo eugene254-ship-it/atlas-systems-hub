@@ -33,6 +33,7 @@ import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SpecificationsRouteImport } from './routes/specifications'
 import { Route as SystemsRouteImport } from './routes/systems'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminContentRouteImport } from './routes/admin.content'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -154,6 +155,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminContentRoute = AdminContentRouteImport.update({
+  id: '/content',
+  path: '/content',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -179,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin/content': typeof AdminContentRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin/content': typeof AdminContentRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/resources': typeof ResourcesRoute
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
+  '/admin/content': typeof AdminContentRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -259,6 +268,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin/content'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -284,6 +294,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin/content'
     | '/admin'
   id:
     | '__root__'
@@ -310,6 +321,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/specifications'
     | '/systems'
+    | '/admin/content'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -509,14 +521,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/content': {
+      id: '/admin/content'
+      path: '/content'
+      fullPath: '/admin/content'
+      preLoaderRoute: typeof AdminContentRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminContentRoute: typeof AdminContentRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminContentRoute: AdminContentRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
