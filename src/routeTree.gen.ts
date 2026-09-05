@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as AfricaRouteImport } from './routes/africa'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CommandCenterRouteImport } from './routes/command-center'
 import { Route as ConfigureRouteImport } from './routes/configure'
@@ -49,6 +50,11 @@ const AcademyRoute = AcademyRouteImport.update({
 const AfricaRoute = AfricaRouteImport.update({
   id: '/africa',
   path: '/africa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -142,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
   '/africa': typeof AfricaRoute
+  '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
   '/africa': typeof AfricaRoute
+  '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -189,6 +197,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/academy': typeof AcademyRoute
   '/africa': typeof AfricaRoute
+  '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/command-center': typeof CommandCenterRoute
   '/configure': typeof ConfigureRoute
@@ -214,6 +223,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/academy'
     | '/africa'
+    | '/auth'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -237,6 +247,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/academy'
     | '/africa'
+    | '/auth'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -260,6 +271,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/academy'
     | '/africa'
+    | '/auth'
     | '/careers'
     | '/command-center'
     | '/configure'
@@ -284,6 +296,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AcademyRoute: typeof AcademyRoute
   AfricaRoute: typeof AfricaRoute
+  AuthRoute: typeof AuthRoute
   CareersRoute: typeof CareersRoute
   CommandCenterRoute: typeof CommandCenterRoute
   ConfigureRoute: typeof ConfigureRoute
@@ -331,6 +344,13 @@ declare module '@tanstack/react-router' {
       path: '/africa'
       fullPath: '/africa'
       preLoaderRoute: typeof AfricaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -460,6 +480,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AcademyRoute: AcademyRoute,
   AfricaRoute: AfricaRoute,
+  AuthRoute: AuthRoute,
   CareersRoute: CareersRoute,
   CommandCenterRoute: CommandCenterRoute,
   ConfigureRoute: ConfigureRoute,
