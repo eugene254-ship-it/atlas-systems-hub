@@ -155,6 +155,7 @@ function RootComponent() {
         Start a project →
       </Link>
       <div className="h-14 lg:hidden" aria-hidden="true" />
+      <Toaster />
     </QueryClientProvider>
   );
 }
