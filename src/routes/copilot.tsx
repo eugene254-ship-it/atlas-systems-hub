@@ -30,76 +30,19 @@ export const Route = createFileRoute("/copilot")({
   component: CopilotPage,
 });
 
-const EXAMPLE =
-  "We need a modular operations facility for 35 workers at a remote industrial site.";
-
-type Scope = {
-  headcount: number;
-  useCase: string;
-  remote: boolean;
-  area: number;
-  modules: { name: string; qty: number }[];
-  utilities: string[];
-  questions: string[];
-};
-
-function buildScope(input: string): Scope {
-  const text = input.toLowerCase();
-  const headMatch = text.match(/(\d{1,4})\s*(workers|people|staff|persons|crew|beds|students)/);
-  const headcount = headMatch ? Math.min(Number(headMatch[1]), 2000) : 20;
-  const remote = /remote|off-grid|off grid|site camp|bush|mine|field/.test(text);
-
-  const useCase = /clinic|health|medical/.test(text)
-    ? "Health facility"
-    : /school|classroom|training/.test(text)
-      ? "Training facility"
-      : /warehouse|store|storage|cold/.test(text)
-        ? "Storage and handling facility"
-        : /workshop|fabrication|maintenance/.test(text)
-          ? "Workshop facility"
-          : /accommodation|camp|housing|dorm/.test(text)
-            ? "Accommodation camp"
-            : "Operations facility";
-
-  const perPerson = useCase === "Accommodation camp" ? 9 : 6;
-  const area = Math.max(30, Math.round((headcount * perPerson) / 5) * 5);
-
-  const officeUnits = Math.max(1, Math.ceil(area / 30));
-  const ablutionUnits = Math.max(1, Math.ceil(headcount / 15));
-  const modules = [
-    { name: `Atlas Contain 20ft ${useCase === "Workshop facility" ? "workshop" : "office"} unit`, qty: officeUnits },
-    { name: "Atlas Contain ablution unit", qty: ablutionUnits },
-    { name: "Atlas Mod covered link / walkway", qty: 1 },
-  ];
-  if (remote) modules.push({ name: "Atlas Energy hybrid solar + storage skid", qty: 1 });
-  if (/cold|cold chain|perishable/.test(text))
-    modules.push({ name: "Atlas Contain cold room unit", qty: 1 });
-
-  const utilities = [
-    `Power demand estimate: ${Math.max(15, Math.round(headcount * 0.55))} kW peak`,
-    `Water demand estimate: ${Math.max(1500, headcount * 60)} litres/day`,
-    "Wastewater: septic or packaged treatment, subject to site conditions",
-    remote ? "Connectivity: satellite or cellular backhaul" : "Connectivity: local fibre or cellular",
-  ];
-
-  const questions = [
-    "Confirmed site coordinates, ground conditions and geotechnical data?",
-    "Wind, seismic and rainfall loading parameters for the location?",
-    "Grid availability, tariff and generator backup requirement?",
-    "Water source, quality and discharge consent?",
-    "Access route constraints, bridge limits and abnormal-load permits?",
-    "Required occupancy standards, fire strategy and approving authority?",
-    remote ? "Security, camp management and resupply logistics model?" : "Local planning approvals and site boundary conditions?",
-    "Expected service life, relocation intent and end-of-life plan?",
-  ];
-
-  return { headcount, useCase, remote, area, modules, utilities, questions };
-}
+const EXAMPLE = COPILOT_EXAMPLE;
 
 function CopilotPage() {
+  const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [submitted, setSubmitted] = useState<string | null>(null);
   const scope = useMemo(() => (submitted ? buildScope(submitted) : null), [submitted]);
+
+  function sendToRfq() {
+    if (!scope) return;
+    storePrefill(scopeToPrefill(scope));
+    navigate({ to: "/quote" });
+  }
 
   return (
     <>
