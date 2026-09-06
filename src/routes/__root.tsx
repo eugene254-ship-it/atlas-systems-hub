@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/ais/site-header";
 import { SiteFooter } from "@/components/ais/site-footer";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -154,6 +155,7 @@ function RootComponent() {
         Start a project →
       </Link>
       <div className="h-14 lg:hidden" aria-hidden="true" />
+      <Toaster />
     </QueryClientProvider>
   );
 }

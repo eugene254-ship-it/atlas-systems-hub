@@ -34,6 +34,9 @@ import { Route as SpecificationsRouteImport } from './routes/specifications'
 import { Route as SystemsRouteImport } from './routes/systems'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminContentRouteImport } from './routes/admin.content'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as RfqReceivedRouteImport } from './routes/rfq.received'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -160,6 +163,21 @@ const AdminContentRoute = AdminContentRouteImport.update({
   path: '/content',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const RfqReceivedRoute = RfqReceivedRouteImport.update({
+  id: '/rfq/received',
+  path: '/rfq/received',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -186,6 +204,9 @@ export interface FileRoutesByFullPath {
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/rfq/received': typeof RfqReceivedRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -212,6 +233,9 @@ export interface FileRoutesByTo {
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/rfq/received': typeof RfqReceivedRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -240,6 +264,9 @@ export interface FileRoutesById {
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/rfq/received': typeof RfqReceivedRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -269,6 +296,9 @@ export interface FileRouteTypes {
     | '/specifications'
     | '/systems'
     | '/admin/content'
+    | '/admin/leads'
+    | '/admin/settings'
+    | '/rfq/received'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -295,6 +325,9 @@ export interface FileRouteTypes {
     | '/specifications'
     | '/systems'
     | '/admin/content'
+    | '/admin/leads'
+    | '/admin/settings'
+    | '/rfq/received'
     | '/admin'
   id:
     | '__root__'
@@ -322,6 +355,9 @@ export interface FileRouteTypes {
     | '/specifications'
     | '/systems'
     | '/admin/content'
+    | '/admin/leads'
+    | '/admin/settings'
+    | '/rfq/received'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -349,6 +385,7 @@ export interface RootRouteChildren {
   ResourcesRoute: typeof ResourcesRoute
   SpecificationsRoute: typeof SpecificationsRoute
   SystemsRoute: typeof SystemsRoute
+  RfqReceivedRoute: typeof RfqReceivedRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -528,16 +565,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContentRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/rfq/received': {
+      id: '/rfq/received'
+      path: '/rfq/received'
+      fullPath: '/rfq/received'
+      preLoaderRoute: typeof RfqReceivedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminContentRoute: typeof AdminContentRoute
+  AdminLeadsRoute: typeof AdminLeadsRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminContentRoute: AdminContentRoute,
+  AdminLeadsRoute: AdminLeadsRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -567,6 +629,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesRoute: ResourcesRoute,
   SpecificationsRoute: SpecificationsRoute,
   SystemsRoute: SystemsRoute,
+  RfqReceivedRoute: RfqReceivedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
