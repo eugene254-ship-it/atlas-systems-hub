@@ -36,6 +36,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminContentRouteImport } from './routes/admin.content'
 import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as RfqReceivedRouteImport } from './routes/rfq.received'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -172,6 +173,11 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
+const RfqReceivedRoute = RfqReceivedRouteImport.update({
+  id: '/rfq/received',
+  path: '/rfq/received',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -200,6 +206,7 @@ export interface FileRoutesByFullPath {
   '/admin/content': typeof AdminContentRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/rfq/received': typeof RfqReceivedRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -228,6 +235,7 @@ export interface FileRoutesByTo {
   '/admin/content': typeof AdminContentRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/rfq/received': typeof RfqReceivedRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -258,6 +266,7 @@ export interface FileRoutesById {
   '/admin/content': typeof AdminContentRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/rfq/received': typeof RfqReceivedRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -289,6 +298,7 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/admin/leads'
     | '/admin/settings'
+    | '/rfq/received'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -317,6 +327,7 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/admin/leads'
     | '/admin/settings'
+    | '/rfq/received'
     | '/admin'
   id:
     | '__root__'
@@ -346,6 +357,7 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/admin/leads'
     | '/admin/settings'
+    | '/rfq/received'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -373,6 +385,7 @@ export interface RootRouteChildren {
   ResourcesRoute: typeof ResourcesRoute
   SpecificationsRoute: typeof SpecificationsRoute
   SystemsRoute: typeof SystemsRoute
+  RfqReceivedRoute: typeof RfqReceivedRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -566,6 +579,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/rfq/received': {
+      id: '/rfq/received'
+      path: '/rfq/received'
+      fullPath: '/rfq/received'
+      preLoaderRoute: typeof RfqReceivedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -609,6 +629,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesRoute: ResourcesRoute,
   SpecificationsRoute: SpecificationsRoute,
   SystemsRoute: SystemsRoute,
+  RfqReceivedRoute: RfqReceivedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
