@@ -1,6 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ActionLink, Container, PageHero, StatusNote } from "@/components/ais/primitives";
+import {
+  COPILOT_EXAMPLE,
+  buildScope,
+  scopeToPrefill,
+  storePrefill,
+} from "@/lib/copilot-brief";
 
 export const Route = createFileRoute("/copilot")({
   head: () => ({
