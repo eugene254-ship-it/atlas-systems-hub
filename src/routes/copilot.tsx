@@ -177,13 +177,20 @@ function CopilotPage() {
                 <div className="bg-background p-8">
                   <p className="mono-label text-primary">Next step</p>
                   <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                    Take this preliminary scope into the configurator to test footprint and
-                    transport implications, or submit it to engineering for a reviewed proposal.
+                    Send this brief straight into the request form — the project details,
+                    configuration and open questions are carried across for you — or test footprint
+                    and transport implications in the configurator first.
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
-                    <ActionLink to="/configure">Open configurator</ActionLink>
-                    <ActionLink to="/quote" variant="outline">
-                      Submit to engineering
+                    <button
+                      type="button"
+                      onClick={sendToRfq}
+                      className="bg-primary px-6 py-3.5 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-primary-foreground transition-colors hover:bg-primary/85"
+                    >
+                      Send brief to engineering →
+                    </button>
+                    <ActionLink to="/configure" variant="outline">
+                      Open configurator
                     </ActionLink>
                   </div>
                 </div>
