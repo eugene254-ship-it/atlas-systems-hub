@@ -34,6 +34,7 @@ import { Route as SpecificationsRouteImport } from './routes/specifications'
 import { Route as SystemsRouteImport } from './routes/systems'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminContentRouteImport } from './routes/admin.content'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -160,6 +161,11 @@ const AdminContentRoute = AdminContentRouteImport.update({
   path: '/content',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -186,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -212,6 +219,7 @@ export interface FileRoutesByTo {
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -240,6 +248,7 @@ export interface FileRoutesById {
   '/specifications': typeof SpecificationsRoute
   '/systems': typeof SystemsRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -269,6 +278,7 @@ export interface FileRouteTypes {
     | '/specifications'
     | '/systems'
     | '/admin/content'
+    | '/admin/leads'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -295,6 +305,7 @@ export interface FileRouteTypes {
     | '/specifications'
     | '/systems'
     | '/admin/content'
+    | '/admin/leads'
     | '/admin'
   id:
     | '__root__'
@@ -322,6 +333,7 @@ export interface FileRouteTypes {
     | '/specifications'
     | '/systems'
     | '/admin/content'
+    | '/admin/leads'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -528,16 +540,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContentRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminContentRoute: typeof AdminContentRoute
+  AdminLeadsRoute: typeof AdminLeadsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminContentRoute: AdminContentRoute,
+  AdminLeadsRoute: AdminLeadsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
