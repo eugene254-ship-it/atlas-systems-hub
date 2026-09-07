@@ -19,13 +19,13 @@ function MarketPage() {
   return (
     <>
       <PageHero
-        eyebrow={f["hero_eyebrow"]}
-        title={f["hero_title"]}
-        lead={f["hero_lead"]}
+        eyebrow={(f["hero_eyebrow"] ?? "")}
+        title={(f["hero_title"] ?? "")}
+        lead={(f["hero_lead"] ?? "")}
       />
 
       <Section>
-        <StatusNote>{f["status_note"]}</StatusNote>
+        <StatusNote>{(f["status_note"] ?? "")}</StatusNote>
         <SectionHeader
           className="mt-8"
           index="01"

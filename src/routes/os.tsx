@@ -24,14 +24,14 @@ function OsPage() {
   return (
     <>
       <PageHero
-        eyebrow={f["hero_eyebrow"]}
-        title={f["hero_title"]}
-        lead={f["hero_lead"]}
+        eyebrow={(f["hero_eyebrow"] ?? "")}
+        title={(f["hero_title"] ?? "")}
+        lead={(f["hero_lead"] ?? "")}
       />
 
       <Section>
         <Container className="px-0 md:px-0">
-          <StatusNote>{f["status_note"]}</StatusNote>
+          <StatusNote>{(f["status_note"] ?? "")}</StatusNote>
         </Container>
         <SectionHeader
           className="mt-8"

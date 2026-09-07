@@ -81,7 +81,7 @@ function AdminLayout() {
           <Link
             key={t.to}
             to={t.to}
-            activeOptions={t.exact ? { exact: true } : undefined}
+            activeOptions={{ exact: t.to === "/admin" }}
             activeProps={{ className: "bg-primary text-primary-foreground" }}
             inactiveProps={{ className: "bg-background hover:text-primary" }}
             className="px-5 py-3 font-mono text-[0.66rem] uppercase tracking-[0.16em]"
