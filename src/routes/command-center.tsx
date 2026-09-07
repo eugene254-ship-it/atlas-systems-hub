@@ -294,27 +294,27 @@ function CommandCenter() {
                     onChange={(v) => update(site.id, { unit: v as UnitType })}
                     options={UNIT_TYPES.map((u) => ({ value: u.id, label: u.label }))}
                   />
-                  <Number
+                  <NumberField
                     label="Modules"
                     value={site.modules}
                     onChange={(v) => update(site.id, { modules: num(v, 200) })}
                   />
-                  <Number
+                  <NumberField
                     label="People on site"
                     value={site.occupancy}
                     onChange={(v) => update(site.id, { occupancy: num(v, 5000) })}
                   />
-                  <Number
+                  <NumberField
                     label="Distance from works (km)"
                     value={site.distanceKm}
                     onChange={(v) => update(site.id, { distanceKm: num(v, 5000) })}
                   />
-                  <Number
+                  <NumberField
                     label="Solar (kW)"
                     value={site.pvKw}
                     onChange={(v) => update(site.id, { pvKw: num(v, 5000) })}
                   />
-                  <Number
+                  <NumberField
                     label="Storage (kWh)"
                     value={site.storageKwh}
                     onChange={(v) => update(site.id, { storageKwh: num(v, 20000) })}
@@ -394,7 +394,7 @@ function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-4 w-full accent-[hsl(var(--primary))]"
+        className="mt-4 w-full accent-primary"
       />
       <span className="mt-2 block text-xs text-muted-foreground">{hint}</span>
     </label>
@@ -430,7 +430,7 @@ function Select({
   );
 }
 
-function Number({
+function NumberField({
   label,
   value,
   onChange,
