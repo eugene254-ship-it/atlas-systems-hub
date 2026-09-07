@@ -29,7 +29,6 @@ export const Route = createFileRoute("/")({
     meta: [
       ...contentMeta(loaderData ?? mergeContent("home", null)),
       { property: "og:url", content: "/" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/" }],
     scripts: [
