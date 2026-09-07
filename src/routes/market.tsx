@@ -1,25 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ActionLink, PageHero, Section, SectionHeader, StatusNote } from "@/components/ais/primitives";
 import { MARKET_CATEGORIES } from "@/components/ais/platform-data";
+import { getSiteContent } from "@/lib/cms.functions";
+import { contentMeta, mergeContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/market")({
-  head: () => ({
-    meta: [
-      { title: "AIS Market — Industrial Modules, Components and Services" },
-      {
-        name: "description",
-        content:
-          "AIS Market is the planned industrial marketplace for standardized modules, components, equipment, fabrication, logistics, maintenance and energy systems.",
-      },
-      { property: "og:title", content: "AIS Market — Coming Industrial Marketplace" },
-      {
-        property: "og:description",
-        content:
-          "Discover, configure, request, contract, deploy and manage industrial systems and services through one commercial layer.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  loader: () => getSiteContent({ data: { key: "market" } }),
+  head: ({ loaderData }) => ({
+    meta: contentMeta(loaderData ?? mergeContent("market", null)),
   }),
   component: MarketPage,
 });
@@ -27,16 +15,17 @@ export const Route = createFileRoute("/market")({
 const FLOW = ["Discover", "Configure", "Request", "Contract", "Deploy", "Manage"];
 
 function MarketPage() {
+  const f = Route.useLoaderData().fields;
   return (
     <>
       <PageHero
-        eyebrow="AIS Market"
-        title="A commercial layer for industrial systems."
-        lead="A single place to discover standardized industrial systems and the engineering, logistics and lifecycle services that make them work — with pricing, lead times and specifications made legible."
+        eyebrow={(f["hero_eyebrow"] ?? "")}
+        title={(f["hero_title"] ?? "")}
+        lead={(f["hero_lead"] ?? "")}
       />
 
       <Section>
-        <StatusNote>Coming platform — not transactable today</StatusNote>
+        <StatusNote>{(f["status_note"] ?? "")}</StatusNote>
         <SectionHeader
           className="mt-8"
           index="01"

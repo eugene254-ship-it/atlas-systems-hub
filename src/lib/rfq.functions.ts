@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { LEAD_STAGES } from "./rfq-stages";
 
 const leadSchema = z.object({
   project_name: z.string().trim().min(2).max(160),
@@ -155,17 +156,6 @@ export const listLeads = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     return data ?? [];
   });
-
-export const LEAD_STAGES = [
-  "new",
-  "qualified",
-  "engineering review",
-  "proposal",
-  "negotiation",
-  "won",
-  "deployed",
-  "closed",
-] as const;
 
 /** Staff: move a lead through the procurement pathway. */
 export const updateLeadStatus = createServerFn({ method: "POST" })

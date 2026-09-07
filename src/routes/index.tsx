@@ -19,31 +19,16 @@ import {
   SYSTEM_FAMILIES,
 } from "@/components/ais/data";
 import { AUDIENCES, STACK_LAYERS } from "@/components/ais/platform-data";
+import { getSiteContent } from "@/lib/cms.functions";
+import { contentMeta, mergeContent } from "@/lib/site-content";
 
 
 export const Route = createFileRoute("/")({
-  head: () => ({
+  loader: () => getSiteContent({ data: { key: "home" } }),
+  head: ({ loaderData }) => ({
     meta: [
-      {
-        title: "Atlas Industrial Systems — Modular Industrial Infrastructure, Africa",
-      },
-      {
-        name: "description",
-        content:
-          "AIS engineers, fabricates, integrates and deploys modular industrial systems: containerized infrastructure, engineered steel, distributed energy and rapid-deployment facilities.",
-      },
-      {
-        property: "og:title",
-        content: "Atlas Industrial Systems — Engineering Infrastructure That Moves Industry Forward",
-      },
-      {
-        property: "og:description",
-        content:
-          "Containerized infrastructure, engineered steel, modular buildings, logistics and distributed energy systems engineered for African industrial conditions.",
-      },
-      { property: "og:type", content: "website" },
+      ...contentMeta(loaderData ?? mergeContent("home", null)),
       { property: "og:url", content: "/" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/" }],
     scripts: [
@@ -90,6 +75,8 @@ function Home() {
 }
 
 function Hero() {
+  const content = Route.useLoaderData();
+  const f = content.fields;
   return (
     <section className="relative overflow-hidden border-b border-border">
       <img
@@ -108,19 +95,17 @@ function Hero() {
         aria-hidden="true"
       />
       <Container className="relative flex min-h-[86vh] flex-col justify-end py-20 md:py-28">
-        <p className="mono-label text-primary">Atlas Industrial Systems</p>
+        <p className="mono-label text-primary">{f["hero_eyebrow"]}</p>
         <h1 className="display-xl mt-6 max-w-5xl text-[2.6rem] leading-[0.95] sm:text-6xl lg:text-[5.2rem]">
-          Engineering infrastructure that moves industry forward.
+          {f["hero_title"]}
         </h1>
         <p className="mt-8 max-w-2xl text-base text-muted-foreground md:text-lg">
-          We design, fabricate, integrate and deploy modular industrial systems built for logistics,
-          energy, manufacturing, construction, mining, humanitarian operations and resilient
-          infrastructure.
+          {f["hero_lead"]}
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-3">
-          <ActionLink to="/configure">Configure a system</ActionLink>
+          <ActionLink to="/configure">{f["cta_primary"]}</ActionLink>
           <ActionLink to="/quote" variant="outline">
-            Start a project
+            {f["cta_secondary"]}
           </ActionLink>
           <ActionLink to="/os" variant="ghost" className="ml-1">
             Enter AIS Industrial OS

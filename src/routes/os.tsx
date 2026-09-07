@@ -8,41 +8,30 @@ import {
   StatusNote,
 } from "@/components/ais/primitives";
 import { FLYWHEEL, OS_CAPABILITIES, STACK_LAYERS } from "@/components/ais/platform-data";
+import { getSiteContent } from "@/lib/cms.functions";
+import { contentMeta, mergeContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/os")({
-  head: () => ({
-    meta: [
-      { title: "AIS Industrial OS — Operating Layer for Physical Infrastructure" },
-      {
-        name: "description",
-        content:
-          "AIS Industrial OS is the planned software layer connecting assets, projects, manufacturing, logistics, maintenance and industrial intelligence in one operating environment.",
-      },
-      { property: "og:title", content: "AIS Industrial OS — Industrial Operating Environment" },
-      {
-        property: "og:description",
-        content:
-          "Asset command, project control, manufacturing, logistics, maintenance, inventory, performance and intelligence in a single industrial operating layer.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  loader: () => getSiteContent({ data: { key: "os" } }),
+  head: ({ loaderData }) => ({
+    meta: contentMeta(loaderData ?? mergeContent("os", null)),
   }),
   component: OsPage,
 });
 
 function OsPage() {
+  const f = Route.useLoaderData().fields;
   return (
     <>
       <PageHero
-        eyebrow="AIS Industrial OS"
-        title="The operating layer for physical infrastructure."
-        lead="Every system AIS engineers, manufactures and deploys is designed to be readable by software: identified, monitored, serviced, upgraded and redeployed across its full life."
+        eyebrow={(f["hero_eyebrow"] ?? "")}
+        title={(f["hero_title"] ?? "")}
+        lead={(f["hero_lead"] ?? "")}
       />
 
       <Section>
         <Container className="px-0 md:px-0">
-          <StatusNote>Platform in development — concept modules</StatusNote>
+          <StatusNote>{(f["status_note"] ?? "")}</StatusNote>
         </Container>
         <SectionHeader
           className="mt-8"
