@@ -3,7 +3,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { LEAD_STAGES, listLeads, updateLeadStatus } from "@/lib/rfq.functions";
+import { listLeads, updateLeadStatus } from "@/lib/rfq.functions";
+import { LEAD_STAGES } from "@/lib/rfq-stages";
 
 export const Route = createFileRoute("/admin/leads")({
   component: LeadsAdmin,
