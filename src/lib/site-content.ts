@@ -75,6 +75,78 @@ export const CONTENT_DEFAULTS: Record<string, SiteContent> = {
 
 export const CONTENT_KEYS = Object.keys(CONTENT_DEFAULTS);
 
+export type FieldSpec = {
+  name: string;
+  label: string;
+  kind: "text" | "textarea" | "list";
+  hint?: string;
+};
+
+const HERO_FIELDS: FieldSpec[] = [
+  { name: "hero_eyebrow", label: "Hero eyebrow", kind: "text" },
+  { name: "hero_title", label: "Hero headline", kind: "text" },
+  { name: "hero_lead", label: "Hero lead paragraph", kind: "textarea" },
+];
+
+/** Which editable fields each page shows in the admin editor. */
+export const PAGE_FIELDS: Record<string, FieldSpec[]> = {
+  home: [
+    ...HERO_FIELDS,
+    { name: "cta_primary", label: "Primary button label", kind: "text" },
+    { name: "cta_secondary", label: "Secondary button label", kind: "text" },
+  ],
+  os: [...HERO_FIELDS, { name: "status_note", label: "Status note", kind: "text" }],
+  market: [...HERO_FIELDS, { name: "status_note", label: "Status note", kind: "text" }],
+  projects: [
+    ...HERO_FIELDS,
+    {
+      name: "projects",
+      label: "Projects and case studies",
+      kind: "list",
+      hint: "One project per line: Name | Location | Sector | System | Deployment | Challenge | Solution | Status label",
+    },
+  ],
+  about: [
+    ...HERO_FIELDS,
+    {
+      name: "leadership",
+      label: "Leadership and team",
+      kind: "list",
+      hint: "One person per line: Name | Role | Short bio",
+    },
+  ],
+  contact: [
+    ...HERO_FIELDS,
+    {
+      name: "locations",
+      label: "Offices and factories",
+      kind: "list",
+      hint: "One location per line: Label | Full address | Notes (e.g. opening hours)",
+    },
+    {
+      name: "channels",
+      label: "Contact channels",
+      kind: "list",
+      hint: "One per line: Purpose | Email or phone",
+    },
+    { name: "note", label: "Footnote under the contact details", kind: "textarea" },
+  ],
+};
+
+/** Split a stored multi-line list field into pipe-separated columns. */
+export function parseList(value: string | undefined, columns: number): string[][] {
+  if (!value?.trim()) return [];
+  return value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const parts = line.split("|").map((p) => p.trim());
+      while (parts.length < columns) parts.push("");
+      return parts.slice(0, columns);
+    });
+}
+
 /** Merge a stored record over the code defaults so a page never renders empty. */
 export function mergeContent(
   key: string,
