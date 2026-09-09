@@ -1,28 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ActionLink, Container, PageHero, StatusNote } from "@/components/ais/primitives";
+import { getSiteContent } from "@/lib/cms.functions";
+import { contentMeta, parseList } from "@/lib/site-content";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About Atlas Industrial Systems — Vision, Mission, Values" },
-      {
-        name: "description",
-        content:
-          "AIS exists to make industrial infrastructure accessible, deployable and scalable by combining engineering, fabrication, logistics and technology into modular systems.",
-      },
-      {
-        property: "og:title",
-        content: "We Build Systems for a World That Cannot Afford Fragility — AIS",
-      },
-      {
-        property: "og:description",
-        content:
-          "The vision, mission and values behind Atlas Industrial Systems, an emerging African industrial infrastructure platform.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/about" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  loader: () => getSiteContent({ data: { key: "about" } }),
+  head: ({ loaderData }) => ({
+    meta: loaderData
+      ? [...contentMeta(loaderData), { property: "og:url", content: "/about" }]
+      : [],
     links: [{ rel: "canonical", href: "/about" }],
   }),
   component: AboutPage,
