@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { listSiteContent, saveSiteContent } from "@/lib/cms.functions";
-import { CONTENT_FIELD_LABELS } from "@/lib/site-content";
+import { PAGE_FIELDS } from "@/lib/site-content";
 
 export const Route = createFileRoute("/admin/content")({
   component: ContentAdmin,
