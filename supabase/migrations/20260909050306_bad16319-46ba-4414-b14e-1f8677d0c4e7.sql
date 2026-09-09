@@ -1,0 +1,5 @@
+INSERT INTO public.site_content (route_key, label, seo_title, seo_description, og_title, og_description, fields) VALUES
+('projects', 'Projects', 'Projects & Case Studies — Atlas Industrial Systems', 'Infrastructure projects and case studies from Atlas Industrial Systems.', 'Built for Real Conditions — AIS Projects', 'Projects and case studies showing how AIS systems address real industrial constraints.', '{}'::jsonb),
+('about', 'About & Leadership', 'About Atlas Industrial Systems — Vision, Mission, Leadership', 'The vision, mission, values and leadership behind Atlas Industrial Systems.', 'We Build Systems for a World That Cannot Afford Fragility — AIS', 'The vision, mission, values and leadership behind Atlas Industrial Systems.', '{}'::jsonb),
+('contact', 'Contact & Locations', 'Contact Atlas Industrial Systems — Engineering & Procurement', 'Contact AIS for project enquiries, engineering, procurement, partnerships and careers.', 'Let''s Engineer the Next System — Contact AIS', 'Project enquiries, engineering, procurement, partnerships and careers.', '{}'::jsonb)
+ON CONFLICT (route_key) DO NOTHING;
