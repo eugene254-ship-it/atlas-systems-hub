@@ -15,7 +15,7 @@ export const Route = createFileRoute("/about")({
 });
 
 const VALUES = ["Precision", "Reliability", "Ingenuity", "Discipline", "Scale", "Stewardship"];
-const TEAM = ["Founder", "Engineering", "Operations", "Manufacturing", "Technology", "Partnerships"];
+
 
 function AboutPage() {
   const content = Route.useLoaderData();
