@@ -18,12 +18,16 @@ const VALUES = ["Precision", "Reliability", "Ingenuity", "Discipline", "Scale", 
 const TEAM = ["Founder", "Engineering", "Operations", "Manufacturing", "Technology", "Partnerships"];
 
 function AboutPage() {
+  const content = Route.useLoaderData();
+  const f = content.fields;
+  const leadership = parseList(f["leadership"], 3);
+
   return (
     <>
       <PageHero
-        eyebrow="About AIS"
-        title="We build systems for a world that cannot afford fragility."
-        lead="Atlas Industrial Systems combines engineering, fabrication, logistics and technology to transform infrastructure from isolated construction projects into modular systems."
+        eyebrow={f["hero_eyebrow"] ?? "About AIS"}
+        title={f["hero_title"] ?? ""}
+        lead={f["hero_lead"] ?? ""}
       />
       <Container className="py-20 md:py-28">
         <div className="grid gap-px bg-border md:grid-cols-2">
