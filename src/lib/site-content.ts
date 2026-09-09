@@ -71,9 +71,134 @@ export const CONTENT_DEFAULTS: Record<string, SiteContent> = {
       status_note: "Coming platform — not transactable today",
     },
   },
+  projects: {
+    route_key: "projects",
+    label: "Projects",
+    seo_title: "Projects & Case Studies — Atlas Industrial Systems",
+    seo_description:
+      "Infrastructure projects and case studies from Atlas Industrial Systems: remote facilities, cold-chain nodes, rapid response clinics and fabricated equipment platforms.",
+    og_title: "Built for Real Conditions — AIS Projects",
+    og_description:
+      "Projects and case studies showing how AIS systems address real industrial constraints.",
+    fields: {
+      hero_eyebrow: "Projects",
+      hero_title: "Built for real conditions.",
+      hero_lead:
+        "AIS is an early-stage industrial platform. The work below is presented as concept and pilot projects — not as completed client deliveries.",
+      projects: "",
+    },
+  },
+  about: {
+    route_key: "about",
+    label: "About & Leadership",
+    seo_title: "About Atlas Industrial Systems — Vision, Mission, Leadership",
+    seo_description:
+      "AIS exists to make industrial infrastructure accessible, deployable and scalable by combining engineering, fabrication, logistics and technology into modular systems.",
+    og_title: "We Build Systems for a World That Cannot Afford Fragility — AIS",
+    og_description:
+      "The vision, mission, values and leadership behind Atlas Industrial Systems.",
+    fields: {
+      hero_eyebrow: "About AIS",
+      hero_title: "We build systems for a world that cannot afford fragility.",
+      hero_lead:
+        "Atlas Industrial Systems combines engineering, fabrication, logistics and technology to transform infrastructure from isolated construction projects into modular systems.",
+      leadership: "",
+    },
+  },
+  contact: {
+    route_key: "contact",
+    label: "Contact & Locations",
+    seo_title: "Contact Atlas Industrial Systems — Engineering & Procurement",
+    seo_description:
+      "Contact AIS for project enquiries, engineering, procurement, partnerships, careers and general questions about modular industrial infrastructure.",
+    og_title: "Let's Engineer the Next System — Contact AIS",
+    og_description:
+      "Project enquiries, engineering, procurement, partnerships and careers.",
+    fields: {
+      hero_eyebrow: "Contact",
+      hero_title: "Let's engineer the next system.",
+      hero_lead:
+        "Tell us the operational problem. We will tell you whether a modular industrial system is the right answer.",
+      locations: "",
+      channels: "",
+      note: "",
+    },
+  },
 };
 
 export const CONTENT_KEYS = Object.keys(CONTENT_DEFAULTS);
+
+export type FieldSpec = {
+  name: string;
+  label: string;
+  kind: "text" | "textarea" | "list";
+  hint?: string;
+};
+
+const HERO_FIELDS: FieldSpec[] = [
+  { name: "hero_eyebrow", label: "Hero eyebrow", kind: "text" },
+  { name: "hero_title", label: "Hero headline", kind: "text" },
+  { name: "hero_lead", label: "Hero lead paragraph", kind: "textarea" },
+];
+
+/** Which editable fields each page shows in the admin editor. */
+export const PAGE_FIELDS: Record<string, FieldSpec[]> = {
+  home: [
+    ...HERO_FIELDS,
+    { name: "cta_primary", label: "Primary button label", kind: "text" },
+    { name: "cta_secondary", label: "Secondary button label", kind: "text" },
+  ],
+  os: [...HERO_FIELDS, { name: "status_note", label: "Status note", kind: "text" }],
+  market: [...HERO_FIELDS, { name: "status_note", label: "Status note", kind: "text" }],
+  projects: [
+    ...HERO_FIELDS,
+    {
+      name: "projects",
+      label: "Projects and case studies",
+      kind: "list",
+      hint: "One project per line: Name | Location | Sector | System | Deployment | Challenge | Solution | Status label",
+    },
+  ],
+  about: [
+    ...HERO_FIELDS,
+    {
+      name: "leadership",
+      label: "Leadership and team",
+      kind: "list",
+      hint: "One person per line: Name | Role | Short bio",
+    },
+  ],
+  contact: [
+    ...HERO_FIELDS,
+    {
+      name: "locations",
+      label: "Offices and factories",
+      kind: "list",
+      hint: "One location per line: Label | Full address | Notes (e.g. opening hours)",
+    },
+    {
+      name: "channels",
+      label: "Contact channels",
+      kind: "list",
+      hint: "One per line: Purpose | Email or phone",
+    },
+    { name: "note", label: "Footnote under the contact details", kind: "textarea" },
+  ],
+};
+
+/** Split a stored multi-line list field into pipe-separated columns. */
+export function parseList(value: string | undefined, columns: number): string[][] {
+  if (!value?.trim()) return [];
+  return value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const parts = line.split("|").map((p) => p.trim());
+      while (parts.length < columns) parts.push("");
+      return parts.slice(0, columns);
+    });
+}
 
 /** Merge a stored record over the code defaults so a page never renders empty. */
 export function mergeContent(

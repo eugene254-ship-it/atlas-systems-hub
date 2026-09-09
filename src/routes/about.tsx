@@ -1,43 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ActionLink, Container, PageHero, StatusNote } from "@/components/ais/primitives";
+import { getSiteContent } from "@/lib/cms.functions";
+import { contentMeta, parseList } from "@/lib/site-content";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About Atlas Industrial Systems — Vision, Mission, Values" },
-      {
-        name: "description",
-        content:
-          "AIS exists to make industrial infrastructure accessible, deployable and scalable by combining engineering, fabrication, logistics and technology into modular systems.",
-      },
-      {
-        property: "og:title",
-        content: "We Build Systems for a World That Cannot Afford Fragility — AIS",
-      },
-      {
-        property: "og:description",
-        content:
-          "The vision, mission and values behind Atlas Industrial Systems, an emerging African industrial infrastructure platform.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/about" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  loader: () => getSiteContent({ data: { key: "about" } }),
+  head: ({ loaderData }) => ({
+    meta: loaderData
+      ? [...contentMeta(loaderData), { property: "og:url", content: "/about" }]
+      : [],
     links: [{ rel: "canonical", href: "/about" }],
   }),
   component: AboutPage,
 });
 
 const VALUES = ["Precision", "Reliability", "Ingenuity", "Discipline", "Scale", "Stewardship"];
-const TEAM = ["Founder", "Engineering", "Operations", "Manufacturing", "Technology", "Partnerships"];
+
 
 function AboutPage() {
+  const content = Route.useLoaderData();
+  const f = content.fields;
+  const leadership = parseList(f["leadership"], 3);
+
   return (
     <>
       <PageHero
-        eyebrow="About AIS"
-        title="We build systems for a world that cannot afford fragility."
-        lead="Atlas Industrial Systems combines engineering, fabrication, logistics and technology to transform infrastructure from isolated construction projects into modular systems."
+        eyebrow={f["hero_eyebrow"] ?? "About AIS"}
+        title={f["hero_title"] ?? ""}
+        lead={f["hero_lead"] ?? ""}
       />
       <Container className="py-20 md:py-28">
         <div className="grid gap-px bg-border md:grid-cols-2">
@@ -75,21 +65,28 @@ function AboutPage() {
 
         <div className="mt-20">
           <h2 className="display-xl text-3xl md:text-4xl">Leadership</h2>
-          <p className="mt-5 max-w-2xl text-muted-foreground">
-            Team profiles will be published as roles are confirmed. No biographies are shown until
-            verified.
-          </p>
-          <ul className="mt-8 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-            {TEAM.map((role) => (
-              <li key={role} className="bg-background p-8">
-                <div className="h-24 w-24 grid-field-sm border border-border opacity-60" aria-hidden="true" />
-                <h3 className="mt-6 font-display text-base font-bold uppercase tracking-[0.06em]">
-                  {role}
-                </h3>
-                <p className="mono-label mt-3">Profile — to be added</p>
-              </li>
-            ))}
-          </ul>
+          {leadership.length === 0 ? (
+            <p className="mt-5 max-w-2xl text-muted-foreground">
+              Team profiles will be published as roles are confirmed. No biographies are shown
+              until verified.
+            </p>
+          ) : (
+            <ul className="mt-8 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+              {leadership.map(([name, role, bio]) => (
+                <li key={`${name}-${role}`} className="bg-background p-8">
+                  <div
+                    className="h-24 w-24 grid-field-sm border border-border opacity-60"
+                    aria-hidden="true"
+                  />
+                  <h3 className="mt-6 font-display text-base font-bold uppercase tracking-[0.06em]">
+                    {name}
+                  </h3>
+                  <p className="mono-label mt-3 text-primary">{role}</p>
+                  {bio && <p className="mt-4 text-sm text-muted-foreground">{bio}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="mt-20 panel p-8 md:p-12">

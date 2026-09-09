@@ -1,30 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ActionLink, Container, PageHero } from "@/components/ais/primitives";
+import { getSiteContent } from "@/lib/cms.functions";
+import { contentMeta, parseList } from "@/lib/site-content";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact Atlas Industrial Systems — Engineering & Procurement" },
-      {
-        name: "description",
-        content:
-          "Contact AIS for project enquiries, engineering, procurement, partnerships, careers and general questions about modular industrial infrastructure.",
-      },
-      { property: "og:title", content: "Let's Engineer the Next System — Contact AIS" },
-      {
-        property: "og:description",
-        content: "Project enquiries, engineering, procurement, partnerships and careers.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/contact" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  loader: () => getSiteContent({ data: { key: "contact" } }),
+  head: ({ loaderData }) => ({
+    meta: loaderData
+      ? [...contentMeta(loaderData), { property: "og:url", content: "/contact" }]
+      : [],
     links: [{ rel: "canonical", href: "/contact" }],
   }),
   component: ContactPage,
 });
 
-const CHANNELS = [
+const FALLBACK_CHANNELS = [
   ["Project enquiries", "projects@[domain to be confirmed]"],
   ["Engineering", "engineering@[domain to be confirmed]"],
   ["Procurement", "procurement@[domain to be confirmed]"],
@@ -33,17 +23,55 @@ const CHANNELS = [
   ["General enquiries", "hello@[domain to be confirmed]"],
 ];
 
+const FALLBACK_NOTE =
+  "Contact details are placeholders until verified addresses are supplied. No office or facility location is published until an AIS site is confirmed.";
+
 function ContactPage() {
+  const content = Route.useLoaderData();
+  const f = content.fields;
+
+  const locations = parseList(f["locations"], 3);
+  const parsedChannels = parseList(f["channels"], 2);
+  const channels = parsedChannels.length ? parsedChannels : FALLBACK_CHANNELS;
+  const note = f["note"] || (parsedChannels.length || locations.length ? "" : FALLBACK_NOTE);
+
   return (
     <>
       <PageHero
-        eyebrow="Contact"
-        title="Let's engineer the next system."
-        lead="Tell us the operational problem. We will tell you whether a modular industrial system is the right answer."
+        eyebrow={f["hero_eyebrow"] ?? "Contact"}
+        title={f["hero_title"] ?? ""}
+        lead={f["hero_lead"] ?? ""}
       />
       <Container className="py-16 md:py-24">
+        {locations.length > 0 && (
+          <div className="mb-16">
+            <h2 className="display-xl text-2xl md:text-3xl">Offices & facilities</h2>
+            <div className="mt-8 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+              {locations.map(([label, address, detail]) => (
+                <div key={`${label}-${address}`} className="bg-background p-8">
+                  <p className="mono-label text-primary">{label}</p>
+                  <address className="mt-4 not-italic text-sm text-foreground">{address}</address>
+                  {detail && (
+                    <p className="mt-3 text-xs text-muted-foreground">{detail}</p>
+                  )}
+                  {address && (
+                    <a
+                      className="mt-5 inline-block font-mono text-[0.66rem] uppercase tracking-[0.16em] text-primary underline-offset-4 hover:underline"
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View on map →
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {CHANNELS.map(([title, contact]) => (
+          {channels.map(([title, contact]) => (
             <div key={title} className="bg-background p-8">
               <h2 className="font-display text-base font-bold uppercase tracking-[0.06em]">
                 {title}
@@ -52,10 +80,9 @@ function ContactPage() {
             </div>
           ))}
         </div>
-        <p className="mt-8 max-w-2xl text-xs text-muted-foreground">
-          Contact details are placeholders until verified addresses are supplied. No office or
-          facility location is published until an AIS site is confirmed.
-        </p>
+
+        {note && <p className="mt-8 max-w-2xl text-xs text-muted-foreground">{note}</p>}
+
         <div className="mt-14 flex flex-wrap gap-3">
           <ActionLink to="/quote">Start a project</ActionLink>
           <ActionLink to="/configure" variant="outline">

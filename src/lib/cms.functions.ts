@@ -64,7 +64,7 @@ const contentSchema = z.object({
   seo_description: z.string().max(400).default(""),
   og_title: z.string().max(180).default(""),
   og_description: z.string().max(400).default(""),
-  fields: z.record(z.string(), z.string().max(2000)),
+  fields: z.record(z.string(), z.string().max(20000)),
 });
 
 /** Staff: save one page's content and SEO fields. */
