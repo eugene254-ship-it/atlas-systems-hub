@@ -99,27 +99,36 @@ function ContentAdmin() {
         <fieldset>
           <legend className="mono-label mb-5 text-primary">Page content</legend>
           <div className="space-y-6">
-            {Object.entries(CONTENT_FIELD_LABELS).map(([key, label]) => (
-              <label key={key} className="block">
-                <span className="mono-label text-foreground">{label}</span>
-                {key.endsWith("lead") || key.endsWith("note") ? (
-                  <textarea
-                    rows={3}
-                    className={inputClass}
-                    value={draft.fields[key] ?? ""}
-                    onChange={(e) =>
-                      setDraft({ ...draft, fields: { ...draft.fields, [key]: e.target.value } })
-                    }
-                  />
-                ) : (
+            {(PAGE_FIELDS[draft.route_key] ?? []).map((field) => (
+              <label key={field.name} className="block">
+                <span className="mono-label text-foreground">{field.label}</span>
+                {field.kind === "text" ? (
                   <input
                     type="text"
                     className={inputClass}
-                    value={draft.fields[key] ?? ""}
+                    value={draft.fields[field.name] ?? ""}
                     onChange={(e) =>
-                      setDraft({ ...draft, fields: { ...draft.fields, [key]: e.target.value } })
+                      setDraft({
+                        ...draft,
+                        fields: { ...draft.fields, [field.name]: e.target.value },
+                      })
                     }
                   />
+                ) : (
+                  <textarea
+                    rows={field.kind === "list" ? 8 : 3}
+                    className={`${inputClass} ${field.kind === "list" ? "font-mono text-xs" : ""}`}
+                    value={draft.fields[field.name] ?? ""}
+                    onChange={(e) =>
+                      setDraft({
+                        ...draft,
+                        fields: { ...draft.fields, [field.name]: e.target.value },
+                      })
+                    }
+                  />
+                )}
+                {field.hint && (
+                  <span className="mt-2 block text-xs text-muted-foreground">{field.hint}</span>
                 )}
               </label>
             ))}
